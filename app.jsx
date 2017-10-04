@@ -34,7 +34,7 @@ const App = ({ title, model }) => {
   const items = model.todos.map((todo, index) => {
     return (
       <div className="main">
-            <h2>Invitees</h2>
+        <h2>Invitees</h2>
         <li key={todo.id}>
           <input
             type="text"
@@ -57,14 +57,20 @@ const App = ({ title, model }) => {
         <h1>RSVP</h1>
         <p> {title} </p>
       </header>
-      <form id="registrar"
+      <form
+        id="registrar"
         onSubmit={e => {
           e.preventDefault();
           model.addTodo(model.inputValue);
         }}
       >
-        <input onChange={e => (model.inputValue = e.target.value)} />
-        <button type="submit">Add Item</button>
+        <input
+          name="name"
+          type="text"
+          placeholder="Invite Someone"
+          onChange={e => (model.inputValue = e.target.value)}
+        />
+        <button type="submit">Submit</button>
       </form>
       <ul id="invitedList"> {items} </ul>
     </div>
