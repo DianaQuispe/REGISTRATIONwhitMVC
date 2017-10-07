@@ -33,22 +33,26 @@ class Model {
 const App = ({ title, model }) => {
   const items = model.todos.map((todo, index) => {
     return (
-      <div className="main">
-        <h2>Invitees</h2>
-        <li key={todo.id}>
-          <input
-            type="text"
-            value={todo.text}
-            onChange={e =>
-              model.updateTodo(index, {
-                id: todo.id,
-                text: e.target.value,
-                completed: todo.completed
-              })}
-          />
-          <button onClick={() => model.removeTodo(todo)}> delete item</button>
-        </li>
-      </div>
+     
+          <li key={todo.id}>
+            <label>
+              <input
+                type="text"
+                value={todo.text}
+                onChange={e =>
+                  model.updateTodo(index, {
+                    id: todo.id,
+                    text: e.target.value,
+                    completed: todo.completed
+                  })}
+              />
+              Confirmed
+
+              <input type="checkbox"/>
+            </label>
+            <button onClick={() => model.removeTodo(todo)}>remove</button>
+          </li>
+
     );
   });
   return (
@@ -56,23 +60,28 @@ const App = ({ title, model }) => {
       <header>
         <h1>RSVP</h1>
         <p> {title} </p>
+        <form
+          id="registrar"
+          onSubmit={e => {
+            e.preventDefault();
+            model.addTodo(model.inputValue);
+          }}
+        >
+          <input
+            name="name"
+            type="text"
+            placeholder="Invite Someone"
+            onChange={e => (model.inputValue = e.target.value)}
+          />
+          <button type="submit">Submit</button>
+        </form>
       </header>
-      <form
-        id="registrar"
-        onSubmit={e => {
-          e.preventDefault();
-          model.addTodo(model.inputValue);
-        }}
-      >
-        <input
-          name="name"
-          type="text"
-          placeholder="Invite Someone"
-          onChange={e => (model.inputValue = e.target.value)}
-        />
-        <button type="submit">Submit</button>
-      </form>
-      <ul id="invitedList"> {items} </ul>
+      <div className="main">
+        <h2>Invitees</h2>
+        <ul className="invitedList">
+          {items}
+        </ul>
+      </div>
     </div>
   );
 };
